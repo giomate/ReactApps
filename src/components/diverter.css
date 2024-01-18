@@ -1,0 +1,20 @@
+.co2Text{
+    font-size: 2vw;
+    position: absolute;
+    
+  
+  }
+
+
+  .limitsTriangle {
+    height: inherit;
+    width: inherit;
+    max-width: 60px;
+    max-height: 60px;
+    min-width: 6px;
+    min-height: 6px;
+    content: ' ';
+    text-align: ce;
+  
+  }
+

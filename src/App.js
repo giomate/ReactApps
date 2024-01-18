@@ -18,25 +18,84 @@ function  App() {
 //  const isPageVisible = usePageVisibility();
   const timerIdRef = useRef(null);
  // const [isPollingEnabled, setIsPollingEnabled] = useState(true);
-  const [count, setCount] = useState(0); 
-  const [angle, SetAngle] = useState(90); 
-  const [temperatureValue, SetTemperature] = useState(-25); 
+  const [diverter, setDiverter] = useState({
+    human:{
+      mode:0,
+      target: 0
+
+    },
+    inlet:{
+      co2:800,
+      voc:100,
+      hcho:100,
+      dust: 20,
+      speed: 50
+
+    },
+    diffusor:{
+      co2:800,
+      voc:100,
+      hcho:100,
+      dust: 20,
+      speed: 50
+
+    },
+    scavenge:{
+      co2:800,
+      voc:100,
+      hcho:100,
+      dust: 20,
+      speed: 50
+
+    }
+  }); 
+ 
   const maxValueTem=55;
 // const [apiCall,SetAPI]=useState(CallAPI())
-let apiCall=[];
+let diverterData=[];
  // let count=0;
   useEffect(() => {
     const pollingCallback = async () => {
       // Your polling logic here
    //   console.log('Polling...');
     //  SetAPI(apiCall)
-     apiCall= await CallAPI()
-     console.log(apiCall);
-     SetAngle(apiCall.ang)
-     SetTemperature(apiCall.tem)
-     
-      setCount(count + 1); 
-      console.log(count)
+     diverterData= await CallAPI()
+     console.log(diverterData);
+     setDiverter({
+      human:{
+        mode:diverterData.human.mod,
+        target: diverterData.human.tgt
+  
+      },
+      inlet:{
+        co2:diverterData.inl.co2,
+        voc:diverterData.inl.voc,
+        hcho:diverterData.inl.hch,
+        dust: diverterData.inl.dst,
+        speed: diverterData.inl.spd
+  
+      },
+      diffusor:{
+        co2:diverterData.dif.co2,
+        voc:diverterData.dif.voc,
+        hcho:diverterData.dif.hch,
+        dust: diverterData.dif.dst,
+        speed: diverterData.dif.spd
+  
+      },
+      scavenge:{
+        co2:diverterData.sca.co2,
+        voc:diverterData.sca.voc,
+        hcho:diverterData.sca.hch,
+        dust: diverterData.sca.dst,
+        speed: diverterData.sca.spd
+  
+      }
+
+
+     })
+ 
+
       // Simulating an API failure in the polling callback
       const shouldFail = Math.random() < 0.1; // Simulate 20% chance of API failure
       //count=count+1;

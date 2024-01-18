@@ -2,13 +2,14 @@ import React, {useEffect, useState,useRef} from 'react';
 
 var temperatureAvocado=25,humidityAvocado=30,angleAvocado=0,moistureAvocado=30;
 var lastValidSeconds0= 0,lastValidSeconds1= 0,lastValidSeconds2= 0;
-const deviceName="Avocado1";
-var secondsTime=0;
-const topicString ='avo1/sub';
+const deviceName="DiverterP1";
+
+const topicString ='divP1/sub';
 const apiURL="https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy"
 let hf=false;
 
-var avocadoData={};
+var apiData={};
+var secondsTime=0;
 
 function SendRequest(){
     let myHeaders = new Headers();
@@ -103,12 +104,12 @@ function isEmpty(obj) {
   }
 
 async function  UpdateData(){
-    angleAvocado=1*avocadoData.ang/1;
-    temperatureAvocado=avocadoData.tem;
+    angleAvocado=1*apiData.ang/1;
+    temperatureAvocado=apiData.tem;
     
-    humidityAvocado=avocadoData.res;
+    humidityAvocado=apiData.res;
     
-    moistureAvocado=avocadoData.hum;
+    moistureAvocado=apiData.hum;
 
         
   }
@@ -143,8 +144,8 @@ async function GetResponse(){
           return;
         }
       // let pay=json.payload;
-      avocadoData=body; 
-     console.log("Data: ", avocadoData);
+      apiData=body; 
+     console.log("Data: ", apiData);
         await UpdateData();
     } else {
       alert("HTTP-Error: " + response.status);
@@ -218,7 +219,7 @@ export default async function CallAPI(){
             console.log("temperature: ",temperatureAvocado);
             console.log("humidity: ",humidityAvocado);
             console.log("moisture: ",moistureAvocado);
-            data=avocadoData;
+            data=apiData;
         }
        // console.log(request);
 
