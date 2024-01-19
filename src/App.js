@@ -122,7 +122,7 @@ let diverterData=[];
     const startPolling = () => {
       // pollingCallback(); // To immediately start fetching data
       // Polling every 30 seconds
-      timerIdRef.current = setInterval(pollingCallback, 1000);
+      timerIdRef.current = setInterval(pollingCallback, 3000);
     };
 
     const stopPolling = () => {
