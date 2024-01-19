@@ -77,11 +77,11 @@ const Inlet  =({color,period,value})=> {
             <div style={{position:`absolute`, alignItems: `center`, 
             textAlign:`center`, display: `flex` ,
             justifyContent: `center`,
-            width: `inherit`,width: `80vw`,
+            width: `80vw`,
             maxWidth: `600px` }}>
                 <h1 style={ {alignItems: `center`,  display: `flex`,  
                 justifyContent: `center`,
-                color:`white`, fontSize:`8vw`}}>{value}
+                color:`white`, fontSize:`min(8vw,120px)`}}>{value}
                 </h1>
             </div>
       

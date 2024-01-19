@@ -4,7 +4,7 @@ import React from 'react'
 //import React, { useState, useRef } from 'react';
 
 import Arrow from './arrow'
-import  './diverter.css';
+
 
 import { motion } from "framer-motion";
 
@@ -63,10 +63,14 @@ const Scavenge  =({color,period,value})=> {
                 ></Arrow>
        
             </motion.div>
-            <div className='scavengeText' style={{position:`absolute`, top:`0%`}}>
-            <h1 style={{position:`relative`,display:`flex`,flexDirection:`column`, justifyContent:`flex-end`,
-             color:`white`,fontSize:`8vw`,top:`25%` }}
-            >{value}</h1>
+            <div className='scavengeText' style={{position:`relative`, top:`0%`,
+                 display:`flex`,flexDirection:`column`,  alignItems:`flex-end`,   maxWidth: `600px`,
+                 maxHeight:`200px`,justifyContent:`space-between`,
+                  }}>
+                <h1 style={{position:`relative`,display:`flex`,flexDirection:`column`, 
+                color:`white`,fontSize:`min(8vw,100px)`,     maxWidth: `600px`, justifyContent:`end`,
+                maxHeight:`200px`,  alignItems:`flex-end`, }}
+                >{value}</h1>
             </div>
        
         </div>

@@ -10,12 +10,22 @@ function ParseCO2Color(co2, background=0){
 
 	if(co2>0){
 		if (co2<400) {
-			blue=64+ (400-co2)*192/49 ; green=255- (400-co2)*192/49;
+			blue=128+ (400-co2)*128/400 ; 
+			green=255- (400-co2)*192/49;
 			red=0;
       
-		} else if(co2<1600){
-			green=255- (co2-400)*255/1200;
-			red=(co2-400)*255/1200;
+		}else if(co2<800){
+			green=255- (co2-400)*128/1600;
+			red=(co2-400)*64/1600;
+			blue=64+ (800-co2)*64/800 ; 
+  		} else if(co2<1200){
+			green=128- (co2-400)*128/1600;
+			red=(co2-400)*128/1600;
+			blue=0;
+  		}
+		 else if(co2<1600){
+			green=64- (co2-400)*64/1600;
+			red=(co2-400)*255/1600;
 			blue=0;
   		}else{
 			red=255;
@@ -38,12 +48,12 @@ function GetPeriod(speed){
 
 const Diverter = ({inlet,diffusor,scavenge}) => {
 
-	const inletColor=ParseCO2Color(inlet.value,0);
-	const inletBackgroundColor=ParseCO2Color(inlet.value,1)
-	const diffusorColor=ParseCO2Color(diffusor.value,0);
-	const diffusorBackgroundColor=ParseCO2Color(diffusor.value,1)
-	const scavengeColor=ParseCO2Color(scavenge.value,0);
-	const scavengeBackgroundColor=ParseCO2Color(scavenge.value,1)
+	const inletColor=ParseCO2Color(inlet.co2,0);
+	const inletBackgroundColor=ParseCO2Color(inlet.co2,1)
+	const diffusorColor=ParseCO2Color(diffusor.co2,0);
+	const diffusorBackgroundColor=ParseCO2Color(diffusor.co2,1)
+	const scavengeColor=ParseCO2Color(scavenge.co2,0);
+	const scavengeBackgroundColor=ParseCO2Color(scavenge.co2,1)
 	
 	const diverterStyle = {
 		position: 'relative',
@@ -86,7 +96,7 @@ const Diverter = ({inlet,diffusor,scavenge}) => {
 				<Diffusor
 					color={diffusorColor}
 					period={GetPeriod(diffusor.speed)}
-					value={diffusor.value}
+					value={diffusor.co2}
 
 				>
 
@@ -94,7 +104,7 @@ const Diverter = ({inlet,diffusor,scavenge}) => {
 				<Inlet
 					color={inletColor}
 					period={GetPeriod(inlet.speed)}
-					value={inlet.value}
+					value={inlet.co2}
 
 				>
 					
@@ -102,7 +112,7 @@ const Diverter = ({inlet,diffusor,scavenge}) => {
 				<Scavenge
 					color={scavengeColor}
 					period={GetPeriod(scavenge.speed)}
-					value={scavenge.value}
+					value={scavenge.co2}
 
 				>
 

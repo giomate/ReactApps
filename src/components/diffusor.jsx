@@ -4,7 +4,7 @@ import React from 'react'
 //import React, { useState, useRef } from 'react';
 
 import Arrow from './arrow'
-import  './diverter.css';
+
 
 import { motion } from "framer-motion";
 
@@ -51,7 +51,7 @@ const Diffusor  =({color,period,value})=> {
             style={{display:`flex`, flexDirection:`column`,
         verticalAlign:`top`}}
             >
-            <h1 style={{position:`relative`, color:`white`,fontSize:`8vw`,
+            <h1 style={{position:`relative`, color:`white`,fontSize:`min(8vw,100px)`,
              bottom:`25%`}}
             >{value}</h1>
             </div>

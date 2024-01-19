@@ -3,7 +3,7 @@ import React from 'react'
 
 
 function ParseIAQText(iaq){
-    var text;
+    var text: "undefined";
 
 
 	if(iaq>0){

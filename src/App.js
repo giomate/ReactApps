@@ -1,14 +1,28 @@
 //import logo from './logo.svg';
 //import './App.css';
+import React  from 'react';
 import { useEffect } from "react";
 import { useState,useRef } from "react";
 import { Fragment } from "react";
 import TabOnFocus from "./components/UserWatcher";
 import CallAPI from "./components/ApiHandler";
 //import ReactRadialGauge from "./components/AngleCompass";
-import Progress_bar from "./components/ProgressBarsG";
+//import Progress_bar from "./components/ProgressBarsG";
+import Diverter from "./components/diverter";
+import AirText from './components/airText';
 
 
+
+
+function IsEmptyApp(obj) {
+  for (const prop in obj) {
+    if (Object.hasOwn(obj, prop)) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 
 
@@ -59,57 +73,56 @@ let diverterData=[];
       // Your polling logic here
    //   console.log('Polling...');
     //  SetAPI(apiCall)
-     diverterData= await CallAPI()
-     console.log(diverterData);
-     setDiverter({
-      human:{
-        mode:diverterData.human.mod,
-        target: diverterData.human.tgt
-  
-      },
-      inlet:{
-        co2:diverterData.inl.co2,
-        voc:diverterData.inl.voc,
-        hcho:diverterData.inl.hch,
-        dust: diverterData.inl.dst,
-        speed: diverterData.inl.spd
-  
-      },
-      diffusor:{
-        co2:diverterData.dif.co2,
-        voc:diverterData.dif.voc,
-        hcho:diverterData.dif.hch,
-        dust: diverterData.dif.dst,
-        speed: diverterData.dif.spd
-  
-      },
-      scavenge:{
-        co2:diverterData.sca.co2,
-        voc:diverterData.sca.voc,
-        hcho:diverterData.sca.hch,
-        dust: diverterData.sca.dst,
-        speed: diverterData.sca.spd
-  
-      }
+     let dd= await CallAPI();
+   //  console.log("dd: ",dd);
 
+     diverterData=IsEmptyApp(dd)?diverterData:dd;
+     if(!IsEmptyApp(diverterData)){
+      console.log("diverterData: ",diverterData);
+      setDiverter({
+       human:{
+         mode:diverterData.hum.mod,
+         target: diverterData.hum.tgt
+   
+       },
+       inlet:{
+         co2:diverterData.inl.co2,
+         voc:diverterData.inl.voc,
+         hcho:diverterData.inl.hch,
+         dust: diverterData.inl.dst,
+         speed: diverterData.inl.spd
+   
+       },
+       diffusor:{
+         co2:diverterData.dif.co2,
+         voc:diverterData.dif.voc,
+         hcho:diverterData.dif.hch,
+         dust: diverterData.dif.dst,
+         speed: diverterData.dif.spd
+   
+       },
+       scavenge:{
+         co2:diverterData.sca.co2,
+         voc:diverterData.sca.voc,
+         hcho:diverterData.sca.hch,
+         dust: diverterData.sca.dst,
+         speed: diverterData.sca.spd
+   
+       }
+ 
+ 
+      })
+     }
 
-     })
  
 
-      // Simulating an API failure in the polling callback
-      const shouldFail = Math.random() < 0.1; // Simulate 20% chance of API failure
-      //count=count+1;
-      if (shouldFail) {
-       // setIsPollingEnabled(false);
-        console.log('Polling failed. Stopped polling.');
-      }
      
     };
 
     const startPolling = () => {
       // pollingCallback(); // To immediately start fetching data
       // Polling every 30 seconds
-      timerIdRef.current = setInterval(pollingCallback, 3000);
+      timerIdRef.current = setInterval(pollingCallback, 1000);
     };
 
     const stopPolling = () => {
@@ -130,31 +143,37 @@ let diverterData=[];
      // clearInterval(interval);
 
     };
-  }, [isPageVisible, count]);
+  }, [isPageVisible, diverter]);
 
    return (
 
-      <Fragment>
-      <div style={{ textAlign: "center" }}>
-        <h1>Count: {count}</h1>
-        <div className="AngleDiv">
-            <Progress_bar
-                bgcolor="green"
-                progress={10+angle}
-                height={30}
-                maxValue={10}
+  
+      <div className='diveterContainer'
+      style={{ position:`relative`, display:`flex`,flexDirection:`column`,
+        textAlign: "center" ,justifyItems:`center`,alignItems:`center`}}>
+         <div className='diverterText'>
+         <h1  style={{fontStyle:`bold`,fontSize:`8vw`, position:`relative`}}
+         >Smart Air Separator</h1>
+          </div> 
+        
+        <div className="diverterBox"
+        style={{position:`relative`, display:`flex`,flexDirection:`column`}}
+        >
+            <Diverter
+                inlet={diverter.inlet}
+                diffusor={diverter.diffusor}
+                scavenge={diverter.scavenge}
             />
         </div>
-        <div className="TemperatureDiv">
-           <Progress_bar
-                bgcolor="red"
-                progress={60+temperatureValue*2}
-                height={30}
-                maxValue={maxValueTem}
-            />
+        <div className="airTextContainer">
+          <AirText
+            value={diverter.diffusor.co2}
+          />
+
+       
         </div>
       </div>
-      </Fragment>
+    
    
    );
 }

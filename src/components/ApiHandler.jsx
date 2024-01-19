@@ -1,10 +1,10 @@
 import React, {useEffect, useState,useRef} from 'react';
 
-var temperatureAvocado=25,humidityAvocado=30,angleAvocado=0,moistureAvocado=30;
+var target=25,humidityAvocado=30,mode=0,moistureAvocado=30;
 var lastValidSeconds0= 0,lastValidSeconds1= 0,lastValidSeconds2= 0;
 const deviceName="DiverterP1";
 
-const topicString ='divP1/sub';
+const topicString ='divp1/sub';
 const apiURL="https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy"
 let hf=false;
 
@@ -83,7 +83,7 @@ function SendRequest(){
               console.error('Error fetching api data', e);
             };
           };
-          if (hasFetchedData.current == false) {
+          if (hasFetchedData.current === false) {
             hasFetchedData.current=true
             hf=true
             fetchData();
@@ -93,7 +93,7 @@ function SendRequest(){
       console.log(hasFetchedData,hf);
     return apiData;
 }
-function isEmpty(obj) {
+export  function IsEmpty(obj) {
     for (const prop in obj) {
       if (Object.hasOwn(obj, prop)) {
         return false;
@@ -104,12 +104,11 @@ function isEmpty(obj) {
   }
 
 async function  UpdateData(){
-    angleAvocado=1*apiData.ang/1;
-    temperatureAvocado=apiData.tem;
+    mode=apiData.hum.mod;
     
-    humidityAvocado=apiData.res;
+    target=apiData.hum.tgt;
     
-    moistureAvocado=apiData.hum;
+  
 
         
   }
@@ -124,7 +123,7 @@ async function GetResponse(){
     myHeaders.append("Content-Type", "application/json");
 
     var apiUrl=apiURL +"?seconds="+String(lastValidSeconds1) +"&device="+deviceName;
-    console.log("last Seconds ",lastValidSeconds0 );
+  //  console.log("last Seconds ",lastValidSeconds0 );
     let response=[]
     try{
         response = await fetch(apiUrl);
@@ -134,18 +133,20 @@ async function GetResponse(){
     
  
     if (response.ok) { // if HTTP-status is 200-299
-    //   console.log("Response: ",response);  
+   //    console.log("Response: ",response);  
         // get the response body (the method explained below)
       let json = await response.json();
       
       const body=json.body;
     //  console.log("GOT", body);
-        if (isEmpty(body)) {
+        if (IsEmpty(body)) {
           return;
         }
       // let pay=json.payload;
-      apiData=body; 
-     console.log("Data: ", apiData);
+     
+      const payload=json.body.payload;
+      apiData=payload; 
+   //  console.log("Data: ",payload);
         await UpdateData();
     } else {
       alert("HTTP-Error: " + response.status);
@@ -215,10 +216,9 @@ export default async function CallAPI(){
         lastValidSeconds0=secondsTime;
       //  lastValidSeconds2=secondsTime;
         if( await  GetResponse()){
-            console.log("angle: ",angleAvocado);
-            console.log("temperature: ",temperatureAvocado);
-            console.log("humidity: ",humidityAvocado);
-            console.log("moisture: ",moistureAvocado);
+            console.log("Mode: ",mode);
+            console.log("Target: ",target);
+
             data=apiData;
         }
        // console.log(request);
