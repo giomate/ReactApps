@@ -18,7 +18,7 @@ const Diffusor  =({color,period,value})=> {
         position: 'relative',
 		maxWidth: `600px`,
         maxHeight:`200px`,
-		width: `80vw`,
+		width: `60vw`,
 		height: `20vw`,
 		alignItems: `center`,
         justifyContent: `center`,
@@ -29,7 +29,7 @@ const Diffusor  =({color,period,value})=> {
         position: 'relative',
         maxWidth: `600px`,
         maxHeight:`200px`,
-		width: `80vw`,
+		width: `60vw`,
 		height: `20vw`,
 
         display: `flex`,
