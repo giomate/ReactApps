@@ -93,7 +93,7 @@ function SendRequest(){
       console.log(hasFetchedData,hf);
     return apiData;
 }
-export  function IsEmpty(obj) {
+function IsEmpty(obj) {
     for (const prop in obj) {
       if (Object.hasOwn(obj, prop)) {
         return false;
