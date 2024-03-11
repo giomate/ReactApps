@@ -10,6 +10,9 @@ import CallAPI from "./components/ApiHandler";
 //import Progress_bar from "./components/ProgressBarsG";
 import Diverter from "./components/diverter";
 import AirText from './components/airText';
+import SimpleDrum from './components/Drum';
+import SensorBox from './components/sensorBox';
+import SensorsGroup from './components/SensorsGroup';
 
 
 
@@ -149,26 +152,28 @@ let diverterData=[];
 
   
       <div className='diveterContainer'
-      style={{ position:`relative`, display:`flex`,flexDirection:`column`,
-        textAlign: "center" ,justifyItems:`center`,alignItems:`center`}}>
+         style={{ position:`relative`, display:`flex`,flexDirection:`column`,
+         textAlign: "center" ,justifyItems:`center`,alignItems:`center`}}>
          <div className='diverterText'>
-         <h1  style={{fontStyle:`bold`,fontSize:`8vw`, position:`relative`}}
-         >Smart Air Separator</h1>
+          <h1  style={{fontStyle:`bold`,fontSize:`8vw`, position:`relative`}}
+          >NOISENCE</h1>
           </div> 
         
         <div className="diverterBox"
         style={{position:`relative`, display:`flex`,flexDirection:`column`}}
         >
-            <Diverter
-                inlet={diverter.inlet}
-                diffusor={diverter.diffusor}
-                scavenge={diverter.scavenge}
+            <SensorsGroup
+
+                //battery='80%'
+                //angle='0deg'
+               // radius='20vw'
+               
             />
         </div>
-        <div className="airTextContainer">
-          <AirText
-            value={diverter.diffusor.co2}
-          />
+        <div className="FootpageContainer">
+          <h1  style={{fontStyle:`bold`,fontSize:`4vw`, position:`relative`}}
+          >Wireless Weight Estimation</h1>
+      
 
        
         </div>
