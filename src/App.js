@@ -13,6 +13,7 @@ import AirText from './components/airText';
 import SimpleDrum from './components/Drum';
 import SensorBox from './components/sensorBox';
 import SensorsGroup from './components/SensorsGroup';
+import DrumSensors from './components/DrumSensors';
 
 
 
@@ -65,7 +66,8 @@ function  App() {
       dust: 20,
       speed: 50
 
-    }
+    },
+    weight:'60%'
   }); 
  
   const maxValueTem=55;
@@ -74,6 +76,8 @@ let diverterData=[];
  // let count=0;
   useEffect(() => {
     const pollingCallback = async () => {
+      counter++;
+      console.log('Counter',counter);
       // Your polling logic here
    //   console.log('Polling...');
     //  SetAPI(apiCall)
@@ -126,7 +130,7 @@ let diverterData=[];
     const startPolling = () => {
       // pollingCallback(); // To immediately start fetching data
       // Polling every 30 seconds
-      timerIdRef.current = setInterval(pollingCallback, 3000);
+      timerIdRef.current = setInterval(pollingCallback, 1000);
     };
 
     const stopPolling = () => {
@@ -141,13 +145,13 @@ let diverterData=[];
       
       
     }
-    counter++;
+
     return () => {
       stopPolling();
      // clearInterval(interval);
 
     };
-    }, [isPageVisible, diverter]);
+  }, [isPageVisible, diverter]);
 
    return (
 
@@ -163,10 +167,11 @@ let diverterData=[];
         <div className="diverterBox"
         style={{position:`relative`, display:`flex`,flexDirection:`column`}}
         >
-            <SensorsGroup
+            <DrumSensors
 
                 sensor0={diverter.sensor0}
-                toggle={counter%2}
+                mov={((parseInt(counter/10))%2)==0}
+                weight={diverter.weight}
               //  sensor0
                 //angle='0deg'
                // radius='20vw'

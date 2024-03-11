@@ -12,7 +12,7 @@ import React from 'react'
 const SensorBox = ({battery,angle,radius}) => {
 	
 	const SensorBoxContainer = {
-        position: 'relative',
+        position: 'absolute',
 		display: 	`flex`,
 		alignItems: `center`,
 		maxWidth: `60px`,
@@ -22,17 +22,19 @@ const SensorBox = ({battery,angle,radius}) => {
 		content: '',
       //  maxWidth: `30px`,
         maxHeight: `80px`,
-        minWidth: `2px`,
+       
         minHeight: `2px`,
 		//overflow: `auto`
+		transform: `rotate(${angle})`
 	}
 	
 	const SensorBoxStyle = {
-        position: 'relative',
+        position: 'absolute',
         width: `6vw`,
 		height: `10vw`,
         border:`0.2vw solid green`,
-        transform: `translateX(${radius})  rotate(${angle})`,
+    //    transform: `translateX(${radius})  rotate(${angle})`,
+		transform: `translateX(${radius}) `,
       //  borderColor: `${color} ${color} transparent transparent`,
         background: 'blue',
 

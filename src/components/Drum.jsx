@@ -60,7 +60,7 @@ const SimpleDrum = ({height}) => {
 		//left:`10vw`,
 		alignItems: `center`,
         justifyContent: `center`,
-        padding: `5vw 5vw 0 5vw`
+       // padding: `5vw 5vw 0 5vw`
     
 	}
 	
@@ -69,10 +69,10 @@ const SimpleDrum = ({height}) => {
 	const DrumCircleStyle = {
 		position: 'relative',
 
-      height: `inherit`,
-	  width:`inherit`,
-	  maxWidth: `600px`,
-	  maxHeight: `600px`,
+      height: `50vh`,
+	  width:`50vh`,
+	  maxWidth: `560px`,
+	  maxHeight: `560px`,
        /* margin: 10px auto;*/
     //    display: `flex`,
      //   flexDirection: `column`,
@@ -102,7 +102,7 @@ const SimpleDrum = ({height}) => {
        // flex-wrap: wrap;
      //   borderRadius: `50%`,
        // background: `linear-gradient(to Top,${scavengeBackgroundColor},${inletBackgroundColor},${diffusorBackgroundColor}) `,
-       background: "blue" ,
+       background: "cyan" ,
      //  alignItems: ``,
      //   justifyContent: `center`,
         bottom: '0',
