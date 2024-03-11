@@ -27,6 +27,7 @@ function IsEmptyApp(obj) {
   return true;
 }
 
+let counter=0;
 
 
 function  App() {
@@ -41,9 +42,9 @@ function  App() {
       target: 0
 
     },
-    inlet:{
-      co2:800,
-      voc:100,
+    sensor0:{
+      angle:80,
+      battery:80,
       hcho:100,
       dust: 20,
       speed: 50
@@ -88,9 +89,9 @@ let diverterData=[];
          target: diverterData.hum.tgt
    
        },
-       inlet:{
-         co2:diverterData.inl.co2,
-         voc:diverterData.inl.voc,
+         sensor0:{
+         angle:diverterData.inl.co2,
+         battery:diverterData.inl.voc,
          hcho:diverterData.inl.hch,
          dust: diverterData.inl.dst,
          speed: diverterData.inl.spd
@@ -140,13 +141,13 @@ let diverterData=[];
       
       
     }
-
+    counter++;
     return () => {
       stopPolling();
      // clearInterval(interval);
 
     };
-  }, [isPageVisible, diverter]);
+    }, [isPageVisible, diverter]);
 
    return (
 
@@ -164,7 +165,9 @@ let diverterData=[];
         >
             <SensorsGroup
 
-                //battery='80%'
+                sensor0={diverter.sensor0}
+                toggle={counter%2}
+              //  sensor0
                 //angle='0deg'
                // radius='20vw'
                

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 //import React, { useState, useRef } from 'react';
 
 import Arrow from './arrow'
@@ -9,9 +9,16 @@ import SensorBox from './sensorBox';
 
 
 
-const SensorsGroup  =({sensor0,sensor1,sensor2})=> {
+const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
     
     const [pulseOnce, setPulseOnce] = useState(false)
+
+    useEffect(()=>{
+        setPulseOnce(toggle>0)
+
+     },[]
+    )
+    
 
 	
 	const diverterStyle = {
@@ -48,28 +55,18 @@ const SensorsGroup  =({sensor0,sensor1,sensor2})=> {
         <div style={outletStyle} className='inletGroup'>
            
             <motion.div style={{position:`relative`, left:`0%`}} className='sensorGroupAnimation'
-                initial={{ rotate: 0}}
-                animate={pulseOnce?null: { rotate: 180}}
-                transition={{  duration: 6,repeat:1}}
-                onAnimationComplete={() => setPulseOnce(true)}
+              //  initial={{ rotate: 0}}
+                animate={pulseOnce?{ rotate: 180}:null}
+                transition={{  duration: 6,repeat:0}}
+              //  onAnimationComplete={() => setPulseOnce(true)}
                 >
-                    <motion.div
-                         initial={{ rotate: 180}}
-                         animate={pulseOnce? { rotate: 180}: null}
-                         transition={{  duration: 6,repeat:1}}
-                         onAnimationComplete={() => setPulseOnce(false)}
-                    
-                    
-                    
-                    >
-                        <SensorBox
-                            battery='80%'
-                            angle='0deg'
-                            radius='20vw'
-                    
-                        />
-
-                    </motion.div>
+                <SensorBox
+                    battery='80%'
+                    angle='0deg'
+                    radius='20vw'
+            
+                />
+                 
              
        
             </motion.div>
