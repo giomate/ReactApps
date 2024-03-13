@@ -24,12 +24,15 @@ function useSensorRotation(isMoving){
     */
 }
 
-const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
-    const [isOpen, setIsOpen] = useState(false);
+const SensorsGroup  =({sensor0,sensor1,sensor2,speed})=> {
+  
     const controls = useAnimationControls()
   //  const animation = animate(x, 360, { duration: 3, repeat: 1 })
     const [pulseOnce, setPulseOnce] = useState(false)
-    const scope = useSensorRotation(isOpen);
+    const [animationOn, setAnimation] = useState(false)
+useEffect(()=>{
+  setAnimation(speed!=0)
+}, [speed])
 
 
     const wrapperVariants = {
@@ -52,18 +55,20 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
 
 
       };
+      let animationStarted=false;
    // console.log('toggle0',toggle);
     useEffect(()=>{
       //  setPulseOnce(toggle>0)
   
          
-          setIsOpen(toggle);
-          if (toggle) {
-
-            console.log('animate!!',toggle);
+        
+          if (animationOn ) {
+          
+            console.log('animate!!',speed);
           //  controls.mount();
          //   animation.play()
          controls.start( pulseOnce?'second':'first');
+    
             /*
             controls.start({
                 rotate:  360,
@@ -75,13 +80,13 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
 
          //   controls.mount();
           //  controls.start('second');
-            console.log('stop animate!!',toggle);
+            console.log('stop animate!!',speed);
           //  controls.stop()
           // animation.pause();
           }
    
         //  setPulseOnce(false)
-     },[toggle,pulseOnce] );
+     },[animationOn,pulseOnce] );
     /*
      controls.start({
         animate: {rotate: 180},
@@ -151,6 +156,7 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
                     battery={sensor0.battery}
                     angle='0deg'
                     radius='25vw'
+                    frequency={sensor0.frequency}
             
                     
                 />
@@ -162,9 +168,10 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
 
 
                 }}
-                    battery={sensor0.battery}
+                    battery={sensor1.battery}
                     angle='120deg'
                     radius='25vw'
+                    frequency={sensor1.frequency}
             
                     
                 />
@@ -176,9 +183,10 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
 
 
                 }}
-                    battery={sensor0.battery}
+                    battery={sensor2.battery}
                     angle='-120deg'
                     radius='25vw'
+                    frequency={sensor2.frequency}
             
                     
                 />

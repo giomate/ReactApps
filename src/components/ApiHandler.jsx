@@ -216,8 +216,8 @@ export default async function CallAPI(){
         lastValidSeconds0=secondsTime;
       //  lastValidSeconds2=secondsTime;
         if( await  GetResponse()){
-            console.log("Mode: ",mode);
-            console.log("Target: ",target);
+       //     console.log("Mode: ",mode);
+        //    console.log("Target: ",target);
 
             data=apiData;
         }

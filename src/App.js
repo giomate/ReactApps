@@ -76,8 +76,8 @@ function  App() {
    //  console.log("dd: ",dd);
 
      noisenceAPIData=IsEmptyApp(nd)?noisenceAPIData:nd;
-     if(!IsEmptyApp(noisenceAPIData) && false){
-      console.log("diverterData: ",noisenceAPIData);
+     if(!IsEmptyApp(noisenceAPIData) && nd.mix){
+      console.log("Noisence Data: ",noisenceAPIData);
       setNoisenceData({
         mixer:{
           weight:noisenceAPIData.mix.wgt,
@@ -88,20 +88,23 @@ function  App() {
         },
         sensor0:{
           angle:noisenceAPIData.sn0.ang,
+         
+          frequency:noisenceAPIData.sn0.fqz,
           battery:noisenceAPIData.sn0.bat,
-          frequence:noisenceAPIData.sn0.fqz
         
         },
         sensor1:{
-          angle:noisenceAPIData.sn0.ang,
-          battery:noisenceAPIData.sn0.bat,
-          frequence:noisenceAPIData.sn0.fqz
+          angle:noisenceAPIData.sn1.ang,
+          frequency:noisenceAPIData.sn1.fqz,
+          battery:noisenceAPIData.sn1.bat,
+          
       
         },
         sensor2:{
-          angle:noisenceAPIData.sn0.ang,
-          battery:noisenceAPIData.sn0.bat,
-          frequence:noisenceAPIData.sn0.fqz
+          angle:noisenceAPIData.sn2.ang,
+          frequency:noisenceAPIData.sn2.fqz,
+          battery:noisenceAPIData.sn2.bat,
+          
         
         }
  
@@ -138,7 +141,7 @@ function  App() {
      // clearInterval(interval);
 
     };
-  }, [isPageVisible, noisenceData]);
+  }, [isPageVisible,noisenceData]);
 
    return (
 
@@ -157,10 +160,8 @@ function  App() {
       }}
         >
             <DrumSensors
-
-                sensor0={noisenceData.sensor0}
-                mov={((parseInt(counter/10))%2)==0}
-                weight={noisenceData.weight}
+              noisence={noisenceData}
+             
               //  sensor0
                 //angle='0deg'
                // radius='20vw'

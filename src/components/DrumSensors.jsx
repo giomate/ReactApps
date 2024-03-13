@@ -5,49 +5,44 @@ import SensorsGroup from './SensorsGroup';
 let lastAngle=[0,0,0,0];
 let indexArray=0;
 
-const DrumSensors=({sensor0,sensor1,sensor2,weight,mov}) =>{
-    const [moving, setIsMoving] = useState(false);
+const DrumSensors=({noisence}) =>{
+ //   let h=(1+noisence.mixer.weight*100/10000).toString()+"%"
+    const [height, setHeight] = useState("1%");
     useEffect(()=>{
 
-        let stopped=true;
-        lastAngle.forEach(element => {
-            if (element==sensor0.angle) {
-                
-            } else {
-                lastAngle[(indexArray)%4]=sensor0.angle;
-                stopped=false;
-            }
-        });
-        setIsMoving(!stopped);
+ 
+        setHeight((1+noisence.mixer.weight*100/10000).toString()+"%");
     
-    },[sensor0])
+    },[noisence])
 
     return(
-        <div className='DrumSensorContainer'>
+        <div className='DrumSensorContainer'
+  
+        >
             <div className='DrumSensorGroup'
-            style={{ position:'relative',
-            display: 'flex',
-            flexDirection:'column'
-
+            style={{
+                position:'relative',
+                display: 'flex',
+                flexDirection:'column'
             }}
-            
             >
                 <SimpleDrum
                 style={{
-                    position:'relative',
+                    position:'relative'
                 }}
-                        height={weight}
+                        height={height}
+                        weight={noisence.mixer.weight}
                     >
  
                 </SimpleDrum>
                 <SensorsGroup
-                style={{
-                    position:'absolute',
+                 style={{
+                    position:'absolute'
                 }}
-
-
-                    sensor0={sensor0}
-                    toggle={mov}
+                    sensor0={noisence.sensor0}
+                    sensor1={noisence.sensor1}
+                    sensor2={noisence.sensor2}
+                    speed={noisence.mixer.speed}
                 >
                   
 

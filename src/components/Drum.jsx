@@ -50,6 +50,7 @@ function GetPeriod(speed){
 
 const SimpleDrum = ({height,weight}) => {
 
+//	console.log('height',height);
 
 	const DrumContainerStyle = {
 		position: 'relative',

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 
 
 
@@ -9,8 +9,13 @@ import React from 'react'
 
 
 
-const SensorBox = ({battery,angle,radius}) => {
+const SensorBox = ({battery,angle,radius,frequency}) => {
 	var dynamicWidth = 'min(25vw,25vh)';
+	const [charge, setCharge] = useState("90%")
+	useEffect(()=>{
+		let c=(parseInt( (battery-3200)*100/(4200-3100))).toString()+"%";
+		setCharge(c)
+	  }, [battery])
 	
 	const SensorContainerStyle = {
         position: 'absolute',
@@ -37,17 +42,17 @@ const SensorBox = ({battery,angle,radius}) => {
 	const SensorBoxStyle = {
         position: 'absolute',
 		display:'flex',
-        width: `10vw`,
-		height: `6vw`,
+        width: `12vw`,
+		height: `8vw`,
         border:`0.2vw solid green`,
     //    transform: `translateX(${radius})  rotate(${angle})`,
 	//	transform: 'translateX(calc(25vw-3vw))' ,
       //  borderColor: `${color} ${color} transparent transparent`,
-	  transform: `translate(${dynamicWidth}, -3vw)` ,
+	  transform: `translate(${dynamicWidth}, -4vw)` ,
         background: 'blue',
 
         display: `flex`,
-        flexDirection: `row`,
+        flexDirection: `column`,
         alignItems: `center`,
       justifyContent: `space-between`,
      //   transform: `rotate(${angle})`
@@ -58,14 +63,14 @@ const SensorBox = ({battery,angle,radius}) => {
 	return (
 	<div className='SensorContainer' style={SensorContainerStyle}>
         <div className='sensorBox' style={SensorBoxStyle}>
-            <p 
+		<p 
             style={{position: `relative`,
 				display:`flex`,
 				//textWrap: `wrap`,
-				fontSize:`2vw`,
+				fontSize:`1.5vw`,
 				// bottom: `100%`,
 				 textAlign: `center`,
-				 maxHeight: `2vw`,
+				 maxHeight: `1.5vw`,
 			//	alignItems:`flex-start`,
 			//	justifyContent:"space-between",
 			//	marginBlockStart: `0px`,
@@ -76,7 +81,27 @@ const SensorBox = ({battery,angle,radius}) => {
 
 			}}
             >
-                {battery}
+                Freq: {frequency} Hz
+            </p>
+            <p 
+            style={{position: `relative`,
+				display:`flex`,
+				//textWrap: `wrap`,
+				fontSize:`1.5vw`,
+				// bottom: `100%`,
+				 textAlign: `center`,
+				 maxHeight: `1.5vw`,
+			//	alignItems:`flex-start`,
+			//	justifyContent:"space-between",
+			//	marginBlockStart: `0px`,
+				verticalAlign: `center`,
+                alignItems:'center',
+                justifyContent: `center`,
+                width:'100%'
+
+			}}
+            >
+                Bat: {charge}
             </p>
 
             
