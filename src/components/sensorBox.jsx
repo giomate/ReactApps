@@ -10,8 +10,9 @@ import React from 'react'
 
 
 const SensorBox = ({battery,angle,radius}) => {
+	var dynamicWidth = 'min(25vw,25vh)';
 	
-	const SensorBoxContainer = {
+	const SensorContainerStyle = {
         position: 'absolute',
 		display: 	`flex`,
 		alignItems: `center`,
@@ -21,34 +22,41 @@ const SensorBox = ({battery,angle,radius}) => {
    
 		content: '',
       //  maxWidth: `30px`,
-        maxHeight: `80px`,
        
-        minHeight: `2px`,
+       
+      //  minHeight: `2px`,
 		//overflow: `auto`
+		transformOrigin: `${dynamicWidth} ${dynamicWidth}`,
 		transform: `rotate(${angle})`
+	   
+       
+		
 	}
 	
+	console.log("width",dynamicWidth );
 	const SensorBoxStyle = {
         position: 'absolute',
-        width: `6vw`,
-		height: `10vw`,
+		display:'flex',
+        width: `10vw`,
+		height: `6vw`,
         border:`0.2vw solid green`,
     //    transform: `translateX(${radius})  rotate(${angle})`,
-		transform: `translateX(${radius}) `,
+	//	transform: 'translateX(calc(25vw-3vw))' ,
       //  borderColor: `${color} ${color} transparent transparent`,
+	  transform: `translate(${dynamicWidth}, -3vw)` ,
         background: 'blue',
 
         display: `flex`,
         flexDirection: `row`,
         alignItems: `center`,
-        justifyContent: `space-between`,
+      justifyContent: `space-between`,
      //   transform: `rotate(${angle})`
 	}
 	
 
 	
 	return (
-	<div className='SensorContainer' style={SensorBoxContainer}>
+	<div className='SensorContainer' style={SensorContainerStyle}>
         <div className='sensorBox' style={SensorBoxStyle}>
             <p 
             style={{position: `relative`,

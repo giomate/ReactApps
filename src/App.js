@@ -8,11 +8,6 @@ import TabOnFocus from "./components/UserWatcher";
 import CallAPI from "./components/ApiHandler";
 //import ReactRadialGauge from "./components/AngleCompass";
 //import Progress_bar from "./components/ProgressBarsG";
-import Diverter from "./components/diverter";
-import AirText from './components/airText';
-import SimpleDrum from './components/Drum';
-import SensorBox from './components/sensorBox';
-import SensorsGroup from './components/SensorsGroup';
 import DrumSensors from './components/DrumSensors';
 
 
@@ -37,86 +32,78 @@ function  App() {
 //  const isPageVisible = usePageVisibility();
   const timerIdRef = useRef(null);
  // const [isPollingEnabled, setIsPollingEnabled] = useState(true);
-  const [diverter, setDiverter] = useState({
-    human:{
-      mode:0,
-      target: 0
+  const [noisenceData, setNoisenceData] = useState({
+    mixer:{
+      weight:1500,
+      estimated: 1600,
+      speed: 20
 
     },
     sensor0:{
+      angle:320,
+      battery:80,
+      frequency:600,
+    
+
+    },
+    sensor1:{
       angle:80,
       battery:80,
-      hcho:100,
-      dust: 20,
-      speed: 50
+      frequency:600,
+    
 
     },
-    diffusor:{
-      co2:800,
-      voc:100,
-      hcho:100,
-      dust: 20,
-      speed: 50
+    sensor2:{
+      angle:200,
+      battery:80,
+      frequency:600,
+    
 
     },
-    scavenge:{
-      co2:800,
-      voc:100,
-      hcho:100,
-      dust: 20,
-      speed: 50
-
-    },
-    weight:'60%'
+   
   }); 
  
-  const maxValueTem=55;
-// const [apiCall,SetAPI]=useState(CallAPI())
-let diverterData=[];
- // let count=0;
-  useEffect(() => {
+
+  let noisenceAPIData=[];
+   useEffect(() => {
     const pollingCallback = async () => {
       counter++;
-      console.log('Counter',counter);
+      //console.log('Counter',counter);
       // Your polling logic here
    //   console.log('Polling...');
     //  SetAPI(apiCall)
-     let dd= await CallAPI();
+     let nd= await CallAPI();
    //  console.log("dd: ",dd);
 
-     diverterData=IsEmptyApp(dd)?diverterData:dd;
-     if(!IsEmptyApp(diverterData)){
-      console.log("diverterData: ",diverterData);
-      setDiverter({
-       human:{
-         mode:diverterData.hum.mod,
-         target: diverterData.hum.tgt
-   
-       },
-         sensor0:{
-         angle:diverterData.inl.co2,
-         battery:diverterData.inl.voc,
-         hcho:diverterData.inl.hch,
-         dust: diverterData.inl.dst,
-         speed: diverterData.inl.spd
-   
-       },
-       diffusor:{
-         co2:diverterData.dif.co2,
-         voc:diverterData.dif.voc,
-         hcho:diverterData.dif.hch,
-         dust: diverterData.dif.dst,
-         speed: diverterData.dif.spd
-   
-       },
-       scavenge:{
-         co2:diverterData.sca.co2,
-         voc:diverterData.sca.voc,
-         hcho:diverterData.sca.hch,
-         dust: diverterData.sca.dst,
-         speed: diverterData.sca.spd
-   
-       }
+     noisenceAPIData=IsEmptyApp(nd)?noisenceAPIData:nd;
+     if(!IsEmptyApp(noisenceAPIData) && false){
+      console.log("diverterData: ",noisenceAPIData);
+      setNoisenceData({
+        mixer:{
+          weight:noisenceAPIData.mix.wgt,
+          estimation: noisenceAPIData.mix.est,
+          speed: noisenceAPIData.mix.spd
+        
+    
+        },
+        sensor0:{
+          angle:noisenceAPIData.sn0.ang,
+          battery:noisenceAPIData.sn0.bat,
+          frequence:noisenceAPIData.sn0.fqz
+        
+        },
+        sensor1:{
+          angle:noisenceAPIData.sn0.ang,
+          battery:noisenceAPIData.sn0.bat,
+          frequence:noisenceAPIData.sn0.fqz
+      
+        },
+        sensor2:{
+          angle:noisenceAPIData.sn0.ang,
+          battery:noisenceAPIData.sn0.bat,
+          frequence:noisenceAPIData.sn0.fqz
+        
+        }
  
  
       })
@@ -151,7 +138,7 @@ let diverterData=[];
      // clearInterval(interval);
 
     };
-  }, [isPageVisible, diverter]);
+  }, [isPageVisible, noisenceData]);
 
    return (
 
@@ -165,20 +152,26 @@ let diverterData=[];
           </div> 
         
         <div className="diverterBox"
-        style={{position:`relative`, display:`flex`,flexDirection:`column`}}
+        style={{position:`relative`, display:`flex`,flexDirection:`column`,
+        alignContent:'center'
+      }}
         >
             <DrumSensors
 
-                sensor0={diverter.sensor0}
+                sensor0={noisenceData.sensor0}
                 mov={((parseInt(counter/10))%2)==0}
-                weight={diverter.weight}
+                weight={noisenceData.weight}
               //  sensor0
                 //angle='0deg'
                // radius='20vw'
                
             />
         </div>
-        <div className="FootpageContainer">
+        <div className="FootpageContainer"
+        style={{
+          margin:'5vh 0 0 0'
+        }}
+        >
           <h1  style={{fontStyle:`bold`,fontSize:`4vw`, position:`relative`}}
           >Wireless Weight Estimation</h1>
       

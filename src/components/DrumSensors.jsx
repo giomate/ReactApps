@@ -24,13 +24,28 @@ const DrumSensors=({sensor0,sensor1,sensor2,weight,mov}) =>{
 
     return(
         <div className='DrumSensorContainer'>
-            <div className='DrumSensorGroup'>
+            <div className='DrumSensorGroup'
+            style={{ position:'relative',
+            display: 'flex',
+            flexDirection:'column'
+
+            }}
+            
+            >
                 <SimpleDrum
+                style={{
+                    position:'relative',
+                }}
                         height={weight}
                     >
  
                 </SimpleDrum>
                 <SensorsGroup
+                style={{
+                    position:'absolute',
+                }}
+
+
                     sensor0={sensor0}
                     toggle={mov}
                 >

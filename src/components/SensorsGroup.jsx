@@ -41,12 +41,12 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
             rotate:  3,
             transition: { ease:'linear',  duration: 1, repeat:0}
         },
-        once: {
-            rotate:  [180, 360],
+        first: {
+            rotate:  [0, 180],
             transition: { ease:'linear',  duration: 6, repeat:0}
         },
         second: {
-            rotate:  [ 0,180] ,
+            rotate:  [ 180,360] ,
             transition: { ease:'linear',  duration: 6, repeat:0}
         },
 
@@ -63,7 +63,7 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
             console.log('animate!!',toggle);
           //  controls.mount();
          //   animation.play()
-         controls.start( pulseOnce?'second':'once');
+         controls.start( pulseOnce?'second':'first');
             /*
             controls.start({
                 rotate:  360,
@@ -75,7 +75,7 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
 
          //   controls.mount();
           //  controls.start('second');
-            console.log('second!!',toggle);
+            console.log('stop animate!!',toggle);
           //  controls.stop()
           // animation.pause();
           }
@@ -89,8 +89,8 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
       })
       */
 	
-	const diverterStyle = {
-        position: 'relative',
+	const threeSensorsContainerStyle = {
+        position: 'absolute',
 		maxWidth: `600px`,
         maxHeight:`600px`,
 		///width: `60vw`,
@@ -100,15 +100,21 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
         justifyContent: `center`,
         flexDirection: `row`,
         zIndex:'3',
+       // transform:'translateY(cal(min(50vh,50vw)))',
+        border: '2vw solid ',
+        borderColor: 'transparent',
+    //    top: '-100%'
       //  left:'25vh'
 	}
 	
-	const outletStyle= {
-        position: 'absolute',
+	const threeSensorGroupStyle= {
+        position: 'relative',
         maxWidth: `600px`,
         maxHeight:`600px`,
-//		width: `60vw`,
-//		height: `20vw`,
+        bottom:'100%',
+  
+	//	width: `60vw`,
+	//	height: `20vw`,
         display: `flex`,
         flexDirection: `row`,
         
@@ -122,46 +128,61 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,toggle})=> {
 
 	
 	return (
-	<div style={diverterStyle}  className='TreSensorsContainer'  >
-        <div style={outletStyle} className='threeSensorsGroup'   >
-            <motion.div style={{position:`absolute`, left:`0%`}} className='sensorGroupAnimation'
+	<div style={threeSensorsContainerStyle}  className='threeSensorsContainer'  >
+        <div style={threeSensorGroupStyle} className='threeSensorsGroup'   >
+            <motion.div style={{position:`relative`, left:`0%`}} className='sensorGroupAnimation'
                 variants={wrapperVariants}
               initial={false}
                 animate={ controls }
              //   transition={{  duration: 6,repeat:0}}
                 onAnimationComplete={() => setPulseOnce(!pulseOnce)}
                 >
-                <div className='sensorContainer'> 
+                <div className='sensorContainer2'
+                style={{
+                  height: `min(50vh,50vw)`,
+                  width:`min(50vh,50vw)`,
+                  transformOrigin:'center center'
+                }}
+
+                > 
 
                    
                 <SensorBox className='sensor0Box'
                     battery={sensor0.battery}
                     angle='0deg'
-                    radius='20vw'
+                    radius='25vw'
             
+                    
                 />
                 <SensorBox className='sensor1Box'
-                    style={{
-                        transform: `rotate(120deg)`
-                    }}
+                style={{
+                  position: 'absolute',
+                //  transformOrigin:'center center',
+               //   transform: 'rotate(120)'
 
 
+                }}
                     battery={sensor0.battery}
                     angle='120deg'
-                    radius='20vw'
-
+                    radius='25vw'
             
+                    
                 />
-                <SensorBox className='sensor2Box'
+                   <SensorBox className='sensor2Box'
+                style={{
+                  position: 'absolute',
+                //  transformOrigin:'center center',
+               //   transform: 'rotate(120)'
 
-                    style={{
-                        transform: `rotate(60deg)`
-                    }}
+
+                }}
                     battery={sensor0.battery}
                     angle='-120deg'
-                    radius='20vw'
+                    radius='25vw'
             
+                    
                 />
+
                  </div>
              
        

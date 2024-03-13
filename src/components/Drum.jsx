@@ -48,15 +48,16 @@ function GetPeriod(speed){
 	return (s)*(1-3)/(100)+3;
 }
 
-const SimpleDrum = ({height}) => {
+const SimpleDrum = ({height,weight}) => {
 
 
 	const DrumContainerStyle = {
 		position: 'relative',
 		maxWidth: `600px`,
 		maxHeight: `600px`,
-		width: `60vw`,
-		height: `60vw`,
+		display:'flex',
+	//	width: `60vw`,
+	//	height: `60vw`,
 		//left:`10vw`,
 		alignItems: `center`,
         justifyContent: `center`,
@@ -69,8 +70,8 @@ const SimpleDrum = ({height}) => {
 	const DrumCircleStyle = {
 		position: 'relative',
 
-      height: `50vh`,
-	  width:`50vh`,
+      height: `min(50vh,50vw)`,
+	  width:`min(50vh,50vw)`,
 	  maxWidth: `560px`,
 	  maxHeight: `560px`,
        /* margin: 10px auto;*/
@@ -107,7 +108,11 @@ const SimpleDrum = ({height}) => {
      //   justifyContent: `center`,
         bottom: '0',
         overflow: 'hidden',
-        zIndex:'1'
+        zIndex:'1',
+		display: `flex`,
+        flexDirection: `column`,
+        alignItems: `center`,
+      justifyContent: `space-between`,
 	}
 	
 	
@@ -118,6 +123,26 @@ const SimpleDrum = ({height}) => {
          <div  className='drumCircle'  style={DrumCircleStyle}>
 			<div className='drumWater' style={DrumWaterStyle}>
 
+			 <p 
+            style={{position: `relative`,
+				display:`flex`,
+				//textWrap: `wrap`,
+				fontSize:`4vw`,
+				// bottom: `100%`,
+				 textAlign: `center`,
+				 maxHeight: `4vw`,
+			//	alignItems:`flex-start`,
+			//	justifyContent:"space-between",
+			//	marginBlockStart: `0px`,
+				verticalAlign: `center`,
+                alignItems:'center',
+                justifyContent: `center`,
+             //   width:'100%'
+
+			}}
+            >
+                {weight}
+            </p>
 			</div>
 		
         </div>

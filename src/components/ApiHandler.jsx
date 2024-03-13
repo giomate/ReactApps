@@ -2,9 +2,9 @@ import React, {useEffect, useState,useRef} from 'react';
 
 var target=25,humidityAvocado=30,mode=0,moistureAvocado=30;
 var lastValidSeconds0= 0,lastValidSeconds1= 0,lastValidSeconds2= 0;
-const deviceName="DiverterP1";
+const deviceName="Noisence0";
 
-const topicString ='divp1/sub';
+const topicString ='nsc0/sub';
 const apiURL="https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy"
 let hf=false;
 
@@ -104,9 +104,9 @@ function IsEmpty(obj) {
   }
 
 async function  UpdateData(){
-    mode=apiData.hum.mod;
+   // mode=apiData.hum.mod;
     
-    target=apiData.hum.tgt;
+   // target=apiData.hum.tgt;
     
   
 
