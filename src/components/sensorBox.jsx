@@ -33,7 +33,7 @@ const SensorBox = ({battery,angle,radius}) => {
 		
 	}
 	
-	console.log("width",dynamicWidth );
+	//console.log("width",dynamicWidth );
 	const SensorBoxStyle = {
         position: 'absolute',
 		display:'flex',
