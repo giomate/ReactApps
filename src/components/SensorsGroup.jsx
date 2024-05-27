@@ -30,8 +30,12 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,speed})=> {
   //  const animation = animate(x, 360, { duration: 3, repeat: 1 })
     const [pulseOnce, setPulseOnce] = useState(false)
     const [animationOn, setAnimation] = useState(false)
+    const [ready, setReady] = useState(true)
 useEffect(()=>{
   setAnimation(speed!=0)
+  if (animationOn && !ready) {
+    //controls.start( 'second');
+  }
   
  //console.log('speed!!',animationOn);
 }, [speed])
@@ -70,7 +74,12 @@ useEffect(()=>{
             console.log('pulse',pulseOnce);
           //  controls.mount();
          //   animation.play()
-         controls.start( pulseOnce?'second':'first');
+         if (ready) {
+           setReady(false);
+            controls.start( pulseOnce?'second':'first');
+           
+         }
+        
     
             /*
             controls.start({
@@ -143,7 +152,11 @@ useEffect(()=>{
               initial={false}
                 animate={ controls }
              //   transition={{  duration: 6,repeat:0}}
-                onAnimationComplete={() => setPulseOnce(!pulseOnce)}
+                onAnimationComplete={() => {
+                  setPulseOnce(!pulseOnce); 
+                  setReady(true)
+                }
+              }
                 >
                 <div className='sensorContainer2'
                 style={{
