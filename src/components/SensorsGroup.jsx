@@ -32,6 +32,8 @@ const SensorsGroup  =({sensor0,sensor1,sensor2,speed})=> {
     const [animationOn, setAnimation] = useState(false)
 useEffect(()=>{
   setAnimation(speed!=0)
+  
+ //console.log('speed!!',animationOn);
 }, [speed])
 
 
@@ -45,12 +47,12 @@ useEffect(()=>{
             transition: { ease:'linear',  duration: 1, repeat:0}
         },
         first: {
-            rotate:  [0, 180],
-            transition: { ease:'linear',  duration: 6, repeat:0}
+            rotate:  [0, 360],
+            transition: { ease:'linear',  duration: 6, repeat:1}
         },
         second: {
-            rotate:  [ 180,360] ,
-            transition: { ease:'linear',  duration: 6, repeat:0}
+            rotate:  [ 0,360] ,
+            transition: { ease:'linear',  duration: 6, repeat:1}
         },
 
 
@@ -65,6 +67,7 @@ useEffect(()=>{
           if (animationOn ) {
           
             console.log('animate!!',speed);
+            console.log('pulse',pulseOnce);
           //  controls.mount();
          //   animation.play()
          controls.start( pulseOnce?'second':'first');
@@ -86,7 +89,7 @@ useEffect(()=>{
           }
    
         //  setPulseOnce(false)
-     },[animationOn,pulseOnce] );
+     },[animationOn, pulseOnce] );
     /*
      controls.start({
         animate: {rotate: 180},
