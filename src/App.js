@@ -3,12 +3,13 @@
 import React  from 'react';
 import { useEffect } from "react";
 import { useState,useRef } from "react";
-import { Fragment } from "react";
+//import { Fragment } from "react";
 import TabOnFocus from "./components/UserWatcher";
 import CallAPI from "./components/ApiHandler";
 //import ReactRadialGauge from "./components/AngleCompass";
 //import Progress_bar from "./components/ProgressBarsG";
-import DrumSensors from './components/DrumSensors';
+//import DrumSensors from './components/DrumSensors';
+import SolarPark from './components/solarPark';
 
 
 
@@ -62,12 +63,46 @@ function  App() {
     },
    
   }); 
+
+  const [solarData, setSolarData] = useState({
+    p0:{
+      voltage:18,
+      current: 1.2,
+      temperature: 22,
+      angle: 19
+
+    },
+    p1:{
+      voltage:18,
+      current: 1.2,
+      temperature: 22,
+      angle: 19
+
+    },
+
+   
+  }); 
  
 
   let noisenceAPIData=[];
    useEffect(() => {
     const pollingCallback = async () => {
       counter++;
+      setSolarData({
+        p0:{
+          angle:(20+6*Math.sin(counter))*Math.PI/180,
+        
+        
+    
+        },
+        p1:{
+          angle:(20-6*Math.sin(counter))*Math.PI/180,
+        
+        
+    
+        },
+     
+      })
       //console.log('Counter',counter);
       // Your polling logic here
    //   console.log('Polling...');
@@ -77,39 +112,8 @@ function  App() {
 
      noisenceAPIData=IsEmptyApp(nd)?noisenceAPIData:nd;
      if(!IsEmptyApp(noisenceAPIData) && nd.mix){
-      console.log("Noisence Data: ",noisenceAPIData);
-      setNoisenceData({
-        mixer:{
-          weight:noisenceAPIData.mix.wgt,
-          estimation: noisenceAPIData.mix.est,
-          speed: noisenceAPIData.mix.spd
-        
-    
-        },
-        sensor0:{
-          angle:noisenceAPIData.sn0.ang,
-         
-          frequency:noisenceAPIData.sn0.fqz,
-          battery:noisenceAPIData.sn0.bat,
-        
-        },
-        sensor1:{
-          angle:noisenceAPIData.sn1.ang,
-          frequency:noisenceAPIData.sn1.fqz,
-          battery:noisenceAPIData.sn1.bat,
-          
-      
-        },
-        sensor2:{
-          angle:noisenceAPIData.sn2.ang,
-          frequency:noisenceAPIData.sn2.fqz,
-          battery:noisenceAPIData.sn2.bat,
-          
-        
-        }
- 
- 
-      })
+      console.log("Solar Data: ",noisenceAPIData);
+     
      }
 
  
@@ -141,17 +145,18 @@ function  App() {
      // clearInterval(interval);
 
     };
-  }, [isPageVisible,noisenceData]);
+  }, [isPageVisible,solarData]);
 
    return (
 
   
-      <div className='diveterContainer'
+      <div className='SolarContainer'
          style={{ position:`relative`, display:`flex`,flexDirection:`column`,
          textAlign: "center" ,justifyItems:`center`,alignItems:`center`}}>
-         <div className='diverterText'>
-          <h1  style={{fontStyle:`bold`,fontSize:`8vw`, position:`relative`}}
-          >NOISENCE</h1>
+         <div className='SolarText' style={{ width: "100vw"}}>
+            <h1  style={{fontStyle:`bold`,fontSize:`10vh`, position:`relative`}}>
+            SOLAR OBSERVER
+            </h1>
           </div> 
         
         <div className="diverterBox"
@@ -159,8 +164,8 @@ function  App() {
         alignContent:'center'
       }}
         >
-            <DrumSensors
-              noisence={noisenceData}
+            <SolarPark
+              panelsData={solarData}
              
               //  sensor0
                 //angle='0deg'
@@ -170,11 +175,12 @@ function  App() {
         </div>
         <div className="FootpageContainer"
         style={{
-          margin:'5vh 0 0 0'
+          margin:'0 0 0 0',
+          width: "100vw", height: "10vh"
         }}
         >
           <h1  style={{fontStyle:`bold`,fontSize:`4vw`, position:`relative`}}
-          >Wireless Weight Estimation</h1>
+          >Smart Energy Monitoring</h1>
       
 
        
