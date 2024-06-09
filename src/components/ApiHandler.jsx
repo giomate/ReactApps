@@ -2,9 +2,9 @@ import React, {useEffect, useState,useRef} from 'react';
 
 var target=25,humidityAvocado=30,mode=0,moistureAvocado=30;
 var lastValidSeconds0= 0,lastValidSeconds1= 0,lastValidSeconds2= 0;
-const deviceName="Noisence0";
+const deviceName="PanelObserver";
 
-const topicString ='nsc0/sub';
+const topicString ='pnl/sub';
 const apiURL="https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy"
 let hf=false;
 
@@ -121,12 +121,12 @@ async function GetResponse(){
     var myHeaders = new Headers();
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
-
-    var apiUrl=apiURL +"?seconds="+String(lastValidSeconds1) +"&device="+deviceName;
-  //  console.log("last Seconds ",lastValidSeconds0 );
+     var panel="Panel"+String(lastValidSeconds1%2)
+    var apiAddress=apiURL +"?seconds="+String(lastValidSeconds1) +"&device="+panel;
+    //console.log("GET ",apiAddress );
     let response=[]
     try{
-        response = await fetch(apiUrl);
+        response = await fetch(apiAddress);
     }catch (e) {
         console.error('Error fetching api data', e);
     };
@@ -138,7 +138,7 @@ async function GetResponse(){
       let json = await response.json();
       
       const body=json.body;
-    //  console.log("GOT", body);
+     // console.log("GOT", body);
         if (IsEmpty(body)) {
           return;
         }
@@ -146,7 +146,7 @@ async function GetResponse(){
      
       const payload=json.body.payload;
       apiData=payload; 
-   //  console.log("Data: ",payload);
+     //console.log("Data: ",payload);
         await UpdateData();
     } else {
       alert("HTTP-Error: " + response.status);
@@ -216,7 +216,7 @@ export default async function CallAPI(){
         lastValidSeconds0=secondsTime;
       //  lastValidSeconds2=secondsTime;
         if( await  GetResponse()){
-       //     console.log("Mode: ",mode);
+           // console.log("Mode: ",mode);
         //    console.log("Target: ",target);
 
             data=apiData;

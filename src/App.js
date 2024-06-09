@@ -66,15 +66,15 @@ function  App() {
 
   const [solarData, setSolarData] = useState({
     p0:{
-      voltage:18,
-      current: 1.2,
-      temperature: 22,
+      voltage:12000,
+      current: 200,
+      temperature: 32,
       angle: 19
 
     },
     p1:{
-      voltage:18,
-      current: 1.2,
+      voltage:11000,
+      current: 300,
       temperature: 22,
       angle: 19
 
@@ -88,21 +88,7 @@ function  App() {
    useEffect(() => {
     const pollingCallback = async () => {
       counter++;
-      setSolarData({
-        p0:{
-          angle:(20+6*Math.sin(counter))*Math.PI/180,
-        
-        
-    
-        },
-        p1:{
-          angle:(20-6*Math.sin(counter))*Math.PI/180,
-        
-        
-    
-        },
-     
-      })
+
       //console.log('Counter',counter);
       // Your polling logic here
    //   console.log('Polling...');
@@ -111,8 +97,28 @@ function  App() {
    //  console.log("dd: ",dd);
 
      noisenceAPIData=IsEmptyApp(nd)?noisenceAPIData:nd;
-     if(!IsEmptyApp(noisenceAPIData) && nd.mix){
+     if(!IsEmptyApp(noisenceAPIData) && nd.cur){
       console.log("Solar Data: ",noisenceAPIData);
+      setSolarData({
+        p0:{
+          angle:(noisenceAPIData.nod==0?noisenceAPIData.ang:solarData.p0.angle)*Math.PI/180,
+          voltage:(noisenceAPIData.nod==0?noisenceAPIData.vol:solarData.p0.voltage),
+          current:(noisenceAPIData.nod==0?noisenceAPIData.cur:solarData.p0.current),
+          temperature:(noisenceAPIData.nod==0?noisenceAPIData.tem:solarData.p0.temperature),
+        
+    
+        },
+        p1:{
+          angle:(noisenceAPIData.nod==1?noisenceAPIData.ang:solarData.p1.angle)*Math.PI/180,
+          voltage:(noisenceAPIData.nod==1?noisenceAPIData.vol:solarData.p1.voltage),
+          current:(noisenceAPIData.nod==1?noisenceAPIData.cur:solarData.p1.current),
+          temperature:(noisenceAPIData.nod==1?noisenceAPIData.tem:solarData.p1.temperature),
+        
+        
+    
+        },
+     
+      })
      
      }
 
