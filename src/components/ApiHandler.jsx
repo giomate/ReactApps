@@ -125,7 +125,7 @@ async function GetResponse(){
     myHeaders.append("Content-Type", "application/json");
      var panel="Panel"+String(lastValidSeconds1%2)
     var apiAddress=apiURL +"?seconds="+String(lastValidSeconds1) +"&device="+panel;
-    //console.log("GET ",apiAddress );
+    console.log("GET ",apiAddress );
     let response=[]
     try{
         response = await fetch(apiAddress);

@@ -14,7 +14,7 @@ function BoxPanel(props) {
      const ref = useRef()
     // useFrame((state) => (textRef.current.position.x = Math.sin(state.clock.elapsedTime) * 0))
      //useFrame((state, delta) => (ref.current.rotation.x += delta))
-    // console.log("angle: ",props.angle)
+     //console.log("angle: ",props.angle)
     // useFrame((state) => (ref.current.rotation.x = angle))
     //{parseInt( props.angle*180/Math.PI)}
   
