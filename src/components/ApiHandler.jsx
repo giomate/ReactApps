@@ -167,9 +167,10 @@ async function GetResponse(){
     var jsonMessage = JSON.stringify({"seconds":secondsTime,"topic":topicString});
    }else{
     var jsonMessage = JSON.stringify({"seconds":secondsTime,"topic":topicString1});
+   // console.log(jsonMessage);
    }
    
-    var jsonMessage = JSON.stringify({"seconds":secondsTime,"topic":topicString});
+    //var jsonMessage = JSON.stringify({"seconds":secondsTime,"topic":topicString});
     // create a JSON object with parameters for API call and store in a variable
     var requestOptions = {
         method: 'POST',
