@@ -3,8 +3,10 @@ import React, {useEffect, useState,useRef} from 'react';
 var target=25,humidityAvocado=30,mode=0,moistureAvocado=30;
 var lastValidSeconds0= 0,lastValidSeconds1= 0,lastValidSeconds2= 0;
 const deviceName="PanelObserver";
+const deviceName1="Noisence0";
 
 const topicString ='pnl/sub';
+const topicString1 ='nsc0/sub';
 const apiURL="https://e4a8sq7bka.execute-api.eu-central-1.amazonaws.com/Deploy"
 let hf=false;
 
@@ -161,6 +163,12 @@ async function GetResponse(){
     myHeaders.append("Content-Type", "application/json");
     var t= (new Date());
     secondsTime = (parseInt((t.getHours()*3600+t.getMinutes()*60+t.getSeconds())*1))%86400;
+   if ((secondsTime%2)==0) {
+    var jsonMessage = JSON.stringify({"seconds":secondsTime,"topic":topicString});
+   }else{
+    var jsonMessage = JSON.stringify({"seconds":secondsTime,"topic":topicString1});
+   }
+   
     var jsonMessage = JSON.stringify({"seconds":secondsTime,"topic":topicString});
     // create a JSON object with parameters for API call and store in a variable
     var requestOptions = {
