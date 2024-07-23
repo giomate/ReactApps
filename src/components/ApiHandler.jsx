@@ -123,9 +123,10 @@ async function GetResponse(){
     var myHeaders = new Headers();
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
-     var panel="Panel"+String(lastValidSeconds1%2)
-    var apiAddress=apiURL +"?seconds="+String(lastValidSeconds1) +"&device="+panel;
-    console.log("GET ",apiAddress );
+     var panel="Panel"+String((lastValidSeconds1%2)>0?1:3)
+    //var apiAddress=apiURL +"?seconds="+String(lastValidSeconds1) +"&device="+panel;
+    var apiAddress=apiURL +"?seconds="+String(0) +"&device="+panel;
+   // console.log("GET ",apiAddress );
     let response=[]
     try{
         response = await fetch(apiAddress);
@@ -140,7 +141,7 @@ async function GetResponse(){
       let json = await response.json();
       
       const body=json.body;
-     // console.log("GOT", body);
+    //  console.log("GOT", body);
         if (IsEmpty(body)) {
           return;
         }

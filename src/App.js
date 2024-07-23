@@ -101,15 +101,15 @@ function  App() {
       console.log("Solar Data: ",noisenceAPIData);
       setSolarData({
         p0:{
-          angle:noisenceAPIData.nod==0?noisenceAPIData.ang*Math.PI/180:solarData.p0.angle,
-          voltage:(noisenceAPIData.nod==0?noisenceAPIData.vol:solarData.p0.voltage),
-          current:(noisenceAPIData.nod==0?noisenceAPIData.cur:solarData.p0.current),
-          temperature:(noisenceAPIData.nod==0?noisenceAPIData.tem:solarData.p0.temperature),
+          angle:noisenceAPIData.nod==3?noisenceAPIData.ang*Math.PI/180+5*Math.PI/6:solarData.p0.angle,
+          voltage:(noisenceAPIData.nod==3?noisenceAPIData.vol:solarData.p0.voltage),
+          current:(noisenceAPIData.nod==3?noisenceAPIData.cur:solarData.p0.current),
+          temperature:(noisenceAPIData.nod==3?noisenceAPIData.tem:solarData.p0.temperature),
         
     
         },
         p1:{
-          angle:noisenceAPIData.nod==1?noisenceAPIData.ang*Math.PI/180:solarData.p1.angle,
+          angle:noisenceAPIData.nod==1?noisenceAPIData.ang*Math.PI/180+ 5*Math.PI/6:solarData.p1.angle,
           voltage:(noisenceAPIData.nod==1?noisenceAPIData.vol:solarData.p1.voltage),
           current:(noisenceAPIData.nod==1?noisenceAPIData.cur:solarData.p1.current),
           temperature:(noisenceAPIData.nod==1?noisenceAPIData.tem:solarData.p1.temperature),
@@ -130,7 +130,7 @@ function  App() {
     const startPolling = () => {
       // pollingCallback(); // To immediately start fetching data
       // Polling every 30 seconds
-      timerIdRef.current = setInterval(pollingCallback, 1000);
+      timerIdRef.current = setInterval(pollingCallback, 3000);
     };
 
     const stopPolling = () => {
