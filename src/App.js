@@ -109,7 +109,7 @@ function  App() {
     
         },
         p1:{
-          angle:noisenceAPIData.nod==1?noisenceAPIData.ang*Math.PI/180+ 3*Math.PI/6:solarData.p1.angle,
+          angle:noisenceAPIData.nod==1?noisenceAPIData.ang*Math.PI/180-1*Math.PI/6:solarData.p1.angle,
           voltage:(noisenceAPIData.nod==1?noisenceAPIData.vol:solarData.p1.voltage),
           current:(noisenceAPIData.nod==1?noisenceAPIData.cur:solarData.p1.current),
           temperature:(noisenceAPIData.nod==1?noisenceAPIData.tem:solarData.p1.temperature),
