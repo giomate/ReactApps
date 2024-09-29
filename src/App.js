@@ -32,6 +32,7 @@ function  App() {
   const isPageVisible = TabOnFocus();
 //  const isPageVisible = usePageVisibility();
   const timerIdRef = useRef(null);
+  const timerrefresh = useRef(null);
  // const [isPollingEnabled, setIsPollingEnabled] = useState(true);
   const [noisenceData, setNoisenceData] = useState({
     mixer:{
@@ -66,45 +67,53 @@ function  App() {
 
   const [solarData, setSolarData] = useState({
     p0:{
-      voltage:12000,
-      current: 200,
-      temperature: 32,
+      voltage:24000,
+      current: 0,
+      temperature: 20,
       angle: 19
 
     },
     p1:{
       voltage:11000,
-      current: 300,
-      temperature: 22,
+      current: 1,
+      temperature: 21,
+      angle: 19
+
+    },
+    p3:{
+      voltage:11000,
+      current: 2,
+      temperature: 21,
       angle: 19
 
     },
 
    
   }); 
- 
-
+  const [refresh, setRefresh] = useState(0)
+  const [solarDefault, setSolarDefault] = useState(solarData);
   let noisenceAPIData=[];
+  
    useEffect(() => {
     const pollingCallback = async () => {
       counter++;
 
       //console.log('Counter',counter);
       // Your polling logic here
-   //   console.log('Polling...');
-    //  SetAPI(apiCall)
+       //   console.log('Polling...');
+       //  SetAPI(apiCall)
      let nd= await CallAPI();
-   //  console.log("dd: ",dd);
+       //  console.log("dd: ",dd);
 
      noisenceAPIData=IsEmptyApp(nd)?noisenceAPIData:nd;
      if(!IsEmptyApp(noisenceAPIData) && nd.cur){
       console.log("Solar Data: ",noisenceAPIData);
       setSolarData({
         p0:{
-          angle:noisenceAPIData.nod==3?noisenceAPIData.ang*Math.PI/180-1*Math.PI/6:solarData.p0.angle,
-          voltage:(noisenceAPIData.nod==3?noisenceAPIData.vol:solarData.p0.voltage),
-          current:(noisenceAPIData.nod==3?noisenceAPIData.cur:solarData.p0.current),
-          temperature:(noisenceAPIData.nod==3?noisenceAPIData.tem:solarData.p0.temperature),
+          angle:noisenceAPIData.nod==0?noisenceAPIData.ang*Math.PI/180-1*Math.PI/6:solarData.p0.angle,
+          voltage:(noisenceAPIData.nod==0?noisenceAPIData.vol:solarData.p0.voltage),
+          current:(noisenceAPIData.nod==0?noisenceAPIData.cur:solarData.p0.current),
+          temperature:(noisenceAPIData.nod==0?noisenceAPIData.tem:solarData.p0.temperature),
         
     
         },
@@ -117,9 +126,27 @@ function  App() {
         
     
         },
+        p3:{
+          angle:noisenceAPIData.nod==3?noisenceAPIData.ang*Math.PI/180-1*Math.PI/6:solarData.p3.angle,
+          voltage:(noisenceAPIData.nod==3?noisenceAPIData.vol:solarData.p3.voltage),
+          current:(noisenceAPIData.nod==3?noisenceAPIData.cur:solarData.p3.current),
+          temperature:(noisenceAPIData.nod==3?noisenceAPIData.tem:solarData.p3.temperature),
+        
+        
+    
+        },
      
       })
+      counter=0;
      
+     }else if(counter>20){
+      console.log("Refresh Data: ",solarDefault);
+      setSolarData(solarDefault);
+      counter=0
+  
+     }else {
+     // console.log("No Data: ");
+   
      }
 
  

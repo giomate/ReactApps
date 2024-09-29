@@ -38,20 +38,20 @@ function BoxPanel(props) {
        
          </boxGeometry>
    
-         <meshStandardMaterial color={'blue'}></meshStandardMaterial>
+         <meshStandardMaterial color={props.color}></meshStandardMaterial>
        </mesh>
      )
    }
 
 
-const Panel =({position, angle, voltage, current,temperature})=>{
+const Panel =({position, angle, voltage, current,temperature, color})=>{
  // console.log("Voltage: ",voltage);
  // console.log("Current: ",current);
 return (
 
         <BoxPanel position={position}  angle={angle}
          voltage={voltage}  current={current}
-         temperature={temperature}
+         temperature={temperature} color={color}
          />
 
 )

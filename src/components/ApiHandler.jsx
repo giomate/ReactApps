@@ -116,17 +116,17 @@ async function  UpdateData(){
   }
   
 
-
-
+var panelList=[0,1,3]
+var panelCounter=0;
 async function GetResponse(){
    
     var myHeaders = new Headers();
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
-     var panel="Panel"+String((lastValidSeconds1%2)>0?1:3)
+     var panel="Panel"+String(panelList[(panelCounter++)%3])
     //var apiAddress=apiURL +"?seconds="+String(lastValidSeconds1) +"&device="+panel;
     var apiAddress=apiURL +"?seconds="+String(0) +"&device="+panel;
-   // console.log("GET ",apiAddress );
+    console.log("GET ",apiAddress );
     let response=[]
     try{
         response = await fetch(apiAddress);

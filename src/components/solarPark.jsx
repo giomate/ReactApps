@@ -16,10 +16,16 @@ const SolarPark = ({panelsData})=> {
       <directionalLight position={[0, panelSize.z/2, 0]}  castShadow/>
       <Panel position={[-0.5-panelSize.x/2, panelSize.z/2, 0]} angle={panelsData.p0.angle} 
        voltage={panelsData.p0.voltage}  current={panelsData.p0.current}
-       temperature={panelsData.p0.temperature}   />
+       temperature={panelsData.p0.temperature}  color={'green'} />
       <Panel position={[0.5+panelSize.x/2, panelSize.z/2, 0]} angle={panelsData.p1.angle} 
     voltage={panelsData.p1.voltage}  current={panelsData.p1.current}
-    temperature={panelsData.p1.temperature}  
+    temperature={panelsData.p1.temperature}   color={'blue'}
+    
+      />
+        <Panel position={[2*0.5+3*panelSize.x/2, panelSize.z/2, 0]} angle={panelsData.p3.angle} 
+    voltage={panelsData.p3.voltage}  current={panelsData.p3.current}
+    temperature={panelsData.p3.temperature}  color={'blue'}
+    
       />
 
    
